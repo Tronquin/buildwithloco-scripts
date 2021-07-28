@@ -1,38 +1,38 @@
 (function () {
-    async function getConfig() {
-        let projectId = 10;
-        const scripts = [...document.querySelectorAll("script")];
-        const ourScript = scripts.filter((s) =>
-            s.src.match(new RegExp(`\?project_id=${projectId}`))
-        )[0];
-    
-        if (ourScript) {
-            const shopMatch = ourScript.src.match(/shop=(.*)/);
-            if (!shopMatch) return null;
-            const shop = shopMatch[1];
-            const response = await fetch(
-                `https://api.buildwithloco.com/projects/8/websites/configs?shop=${shop}`
-            );
-            const data = await response.json();
-            return data;
-        }
-        return {};
+  async function getConfig() {
+    let projectId = 10;
+    const scripts = [...document.querySelectorAll("script")];
+    const ourScript = scripts.filter((s) =>
+      s.src.match(new RegExp(`\?project_id=${projectId}`))
+    )[0];
+
+    if (ourScript) {
+      const shopMatch = ourScript.src.match(/shop=(.*)/);
+      if (!shopMatch) return null;
+      const shop = shopMatch[1];
+      const response = await fetch(
+        `https://api.buildwithloco.com/projects/8/websites/configs?shop=${shop}`
+      );
+      const data = await response.json();
+      return data;
     }
-    
-    // Fetch store config
-    getConfig().then((data) => {
-        // Read your config keys: theme
-        const spinner = data.spinner_type | "circular-spinner";
-        const stylesheet = document.createElement('style');
-        const className = "";
-        const overlay = document.createElement('div');
-        overlay.classList.add('now-loading--overlay');
-        
-        switch (spinner) {
-            case "circular-spinner":
-                
-                className = "circular";
-                stylesheet.innerHTML = `
+    return {};
+  }
+
+  // Fetch store config
+  getConfig().then((data) => {
+    // Read your config keys: theme
+    const spinner = data.spinner_type | "circular-spinner";
+    const stylesheet = document.createElement("style");
+    const className = "";
+    const overlay = document.createElement("div");
+    const spinner = document.createElement("div");
+    overlay.classList.add("now-loading--overlay");
+
+    switch (spinner) {
+      case "circular-spinner":
+        className = "circular";
+        stylesheet.innerHTML = `
                     .${className} {
                         width:100px;
                         height:100px;
@@ -60,38 +60,30 @@
                     }
                 `;
 
-                break;
-            case "loading-bar":
-            
-                break;
-            case "clock":
-            
-                break;
-            case "battery":
-            
-                break;
-            case "two-dots":
-            
-                break;
-            case "rectangle":
-            
-                break;
-            case "morph":
-        
-                break;
-            case "balls":
-    
-                break;
-            case "custom":
+        break;
+      case "loading-bar":
+        break;
+      case "clock":
+        break;
+      case "battery":
+        break;
+      case "two-dots":
+        break;
+      case "rectangle":
+        break;
+      case "morph":
+        break;
+      case "balls":
+        break;
+      case "custom":
+        break;
+      default:
+        break;
+    }
 
-                break;
-            default:
-                break;
-        }
-
-
-        document.head.appendChild(style);
-        // TODO: Your business logic here
-    });
+    spinner.classList.add(className);
+    overlay.appendChild(spinner);
+    document.head.appendChild(style);
+    // TODO: Your business logic here
+  });
 })();
-    
