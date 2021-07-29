@@ -22,14 +22,14 @@
   // Fetch store config
   getConfig().then((data) => {
     // Read your config keys: theme
-    const spinner = data.spinner_type | "circular-spinner";
+    const spinnerClass = data.spinner_type | "circular-spinner";
     const stylesheet = document.createElement("style");
     const className = "";
     const overlay = document.createElement("div");
-    const spinner = document.createElement("div");
+    const spinnerElement = document.createElement("div");
     overlay.classList.add("now-loading--overlay");
 
-    switch (spinner) {
+    switch (spinnerClass) {
       case "circular-spinner":
         className = "circular";
         stylesheet.innerHTML = `
@@ -81,9 +81,8 @@
         break;
     }
 
-    spinner.classList.add(className);
-    overlay.appendChild(spinner);
+    spinnerElement.classList.add(className);
+    overlay.appendChild(spinnerClass);
     document.head.appendChild(style);
-    // TODO: Your business logic here
   });
 })();
